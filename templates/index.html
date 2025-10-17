@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI-Lab — Video Clipper</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1> DDAL Video Clipper</h1>
+    <p class="subtitle">FFmpeg • GIF • Face De-ID</p>
+  </header>
+
+  <main class="page">
+    <section class="grid two">
+      <div class="card">
+        <div class="player card inner">
+          <video id="player" controls></video>
+        </div>
+        <div class="row gap upload-bar">
+          <button id="uploadBtn" class="btn">Upload</button>
+          <input id="file" type="file" accept="video/*" hidden>
+          <span id="fileInfo" class="muted"></span>
+        </div>
+      </div>
+
+      <div class="card control-panel">
+        <h3>Task</h3>
+        <div class="stack section">
+          <label class="radio"><input type="radio" name="task" value="vv" checked><span>video → video</span></label>
+          <label class="radio"><input type="radio" name="task" value="vgif"><span>video → GIF</span></label>
+          <label class="radio"><input type="radio" name="task" value="deid"><span>face de-identification</span></label>
+        </div>
+
+        <div class="row gap section">
+        <label class="field">Start time (hh:mm:ss)
+          <input id="startTime" type="text" placeholder="00:01:00" />
+        </label>
+        <label class="field">Duration (hh:mm:ss)
+          <input id="duration" type="text" placeholder="00:00:10" />
+        </label>
+          
+        <label class="field">Resolution
+          <select id="resolution">
+            <option value="">Original</option>
+            <option value="1920">1920 (keep aspect)</option>
+            <option value="1280">1280 (keep aspect)</option>
+            <option value="854">854 (keep aspect)</option>
+            <option value="640">640 (keep aspect)</option>
+          </select>
+        </label>
+          <label class="field">FPS
+            <select id="fps">
+              <option value="default" selected>default</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="gifQualityRow" class="section hidden">
+          <label class="field">GIF Quality
+            <select id="gifQuality">
+              <option value="custom" selected>Custom (use Resolution/FPS)</option>
+              <option value="tiny">Tiny (PPT)</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="check section"><input id="mute" type="checkbox"><span>Mute audio</span></label>
+
+        <div id="deidBox" class="hidden section">
+          <label class="field">deface extra args (optional)
+            <input id="deidArgs" type="text" placeholder="e.g. --method blur --blur 0.5" />
+          </label>
+        </div>
+
+        <div class="row gap actions section">
+          <button id="process" class="btn primary" disabled>Process</button>
+          <button id="download" class="btn" disabled>Download</button>
+        </div>
+
+        <details class="logs section"><summary>Logs</summary><pre id="logs"></pre></details>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
